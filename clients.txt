@@ -1,4 +1,3 @@
-ID	First	Last	Password	Credit 
-9384	Olly	Lun	*6539jdhi	40
-8321	Ben	Will	839FFgdq	0
-0384	Jenny	Anders	204749!gp	50
+9384 Olly Lun *6539jdhi 40.00
+8321 Ben Will 839FFgdq 0.00
+9383 Jenny Anders 204749!gp 50.00
