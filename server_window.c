@@ -29,6 +29,8 @@ int server(int user_ID, char pwd[30])
                 else {
                     printf("Hello, %s %s! You are now in the system.\n", first, last);
                     printf("Your Current Credit is $%.2f\n", credit);
+                    time = credit/5;
+                    printf("You have %.1f hours on the system.\n", time);
                 }
             }
             fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
