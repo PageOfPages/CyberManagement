@@ -37,7 +37,7 @@ int server(int user_ID, char pwd[30])
             fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         }
         if (user_found == 0) {
-            puts("Sorry, unfortunately you do not have an account with us.");
+            puts("Sorry, your ID/Password is incorrect or you do not have an account with us, try again.");
         }
         fclose(infile); 
     }
