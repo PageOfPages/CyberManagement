@@ -17,6 +17,7 @@ int server(int user_ID, char pwd[30])
         char last[30];
         double credit;
         int user_found = 0;
+        double time=0;
 
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
 
