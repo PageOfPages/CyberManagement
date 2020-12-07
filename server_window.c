@@ -25,7 +25,7 @@ int server(int user_ID, char pwd[30])
             if (ID == user_ID & (strcmp(password, pwd) == 0)) {
                 user_found = 1;
                 if (credit == 0) {
-                    puts("You have no credit remaining in your account.");
+                    printf("Sorry, %s %s! You have no credit remaining in your account.\n", first, last);
                 }
                 else {
                     printf("Hello, %s %s! You are now in the system.\n", first, last);
