@@ -30,7 +30,7 @@ int server(int user_ID, char pwd[30])
                     printf("Sorry, %s %s! You have no credit remaining in your account.\n", first, last);
                 }
                 else {
-                    printf("Hello, %s %s! You are now in the system.\n", first, last);
+                    printf("\nHello, %s %s! You are now in the system.\n", first, last);
                     printf("Your Current Credit is $%.2f\n", credit);
                     time = credit/5;
                     printf("You have %.1f hours on the system.\n", time);
@@ -45,40 +45,47 @@ int server(int user_ID, char pwd[30])
     }
 }
 
-int admin( ) {
-    char action;
-    
-    puts("Actions: \nUser count = 'u'\nCredit for user = 'c'\nAdd user = 'a'\nRemove user = 'r'\nExit = 'x'");
-        printf("What action would you like to perform: ");
-        scanf("%s", &action);
-        action = tolower(action);
-        
-        if (action=="u") {
-            user_count();
-        }
-        
-        if (action=="c") {
-            puts("incomplete data");
-        }
-        
-        if (action=="a") {
-            puts("incomplete data");
-        }
-        
-        if (action=="r") {
-            puts("incomplete data");
-        }
-        
-        if (action=="x") {
-            puts("Thank you for using our system today! Goodbye.");
-//           break;
-        }
-        
-        else {
-            puts("Incorrect input.");
-//            break;
-        }
+int user_count();
+int credit_check();
+//int add_user();
+//int remove_user();
 
+int admin(char apwd[30]) {
+    if (strcmp(apwd, "password")!=0) {
+        puts("Sorry, wrong password! Restart system to login as administrator");
+    }
+    
+    else {
+        char action=' ';
+    
+        puts("Actions: \nUser count = 'u'\nCredit for user = 'c'\nAdd user = 'a'\nRemove user = 'r'\nExit = 'x'");
+    
+        while (action != 'x') {
+            printf("What action would you like to perform: ");
+            scanf("%s", &action);
+            action = tolower(action);
+            switch(action) {
+                case 'u':
+                    user_count();
+                    break;
+                case 'c':
+                    credit_check();
+                    break;
+                case 'a':
+                    puts("incomplete data");
+                    break;
+                case 'r':
+                    puts("incomplete data");
+                    break;
+                case 'x':
+                    break;
+                default:
+                    puts("Invalid input.");
+                    break;
+            }
+        }
+        puts("Thank you for using our system today! Goodbye.");
+    }
 }
 
 int user_count() {
@@ -91,10 +98,97 @@ int user_count() {
     }
     else {
         for (c=getc(infile); c != EOF; c=getc(infile)) {
-            if (c=="\n")
+            if (c=='\n')
                 count += 1;
+        }
     }
     
     fclose(infile);
-    printf("There are %d users in the system.", count);
+    printf("There are %d users in the system.\n", count);
 }
+
+int credit_check() {
+    FILE *infile;
+    int count = 0;
+    char c;
+
+    if ((infile = fopen("clients.txt", "r")) == NULL) {
+        puts("File could not be accessed");
+    }
+    else {
+        int ID;
+        char password[30];
+        char first[30];
+        char last[30];
+        double credit;
+        int user;
+
+        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+ 
+        printf("Please enter ID to check credit amount: ");
+        scanf("%d", &user);
+        while(!feof(infile) ){
+            if (ID == user) {
+                printf("User %d has the remaining credit: $%.2f\n", ID, credit);
+                break;
+            }
+            else {
+                printf("No user found with ID %d.\n", user);
+                break;
+            }
+        }
+        fclose(infile);
+    }
+}
+/*
+int add_user() {
+    FILE *infile;
+    
+    if ((infile = fopen("clients.txt", "a")) == NULL) {
+        puts("File could not be accessed");
+    }
+    else {
+        int ID;
+        char password[30];
+        char first[30];
+        char last[30];
+        double credit;
+        int user;
+
+        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        
+        printf("Enter the User ID, first name, last name, password, and starting credit for the account you would like to create: ");
+        scanf("%d%s%s%s%lf",)
+
+    }
+    fclose(infile);
+}
+
+int remove_user() {
+    FILE *infile;
+    
+    if ((infile = fopen("clients.txt", "r+")) == NULL) {
+        puts("File could not be accessed");
+    }
+    else {
+        int ID;
+        char password[30];
+        char first[30];
+        char last[30];
+        double credit;
+        int user;
+
+        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        
+        printf("Enter a user ID to remove: ");
+        scanf("%d", &user);
+        
+        while(!feof(infile) ){
+            if (ID == user) {
+                
+            }
+    }
+    fclose(infile);
+}
+
+*/ 
