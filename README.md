@@ -1,8 +1,9 @@
 # CyberManagement
 C &amp; Unix Group Project
-Work in progress: Client, Server
-Client Implementations: Terminal-based GUI, switch options for guest or member login, resizing menu, show menu of food, ...
-Server Implementations: Data store for logins/ip, server info, interface for logging in and out, granting access/password,...
+Work in progress: Implement user/admin features, user counts, credit counts, security checks, track of time (probably how much they have used the system before), add/delete users, etc.
+Completed: Log in user
+
+
 
 Problems encounter:
 It is just checking the log in but does not provide any other information!
