@@ -32,8 +32,7 @@ int main(void) {
         }
         
         if (client == 'n') {
-            puts("add user WIP");
-//            add_user();
+            add_user();
         }
         
     }
