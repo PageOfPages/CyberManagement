@@ -140,7 +140,7 @@ int credit_check() {
         fclose(infile);
     }
 }
-/*
+
 int add_user() {
     FILE *infile;
     
@@ -157,13 +157,15 @@ int add_user() {
 
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         
-        printf("Enter the User ID, first name, last name, password, and starting credit for the account you would like to create: ");
-        scanf("%d%s%s%s%lf",)
-
+        printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
+        scanf("%d%s%s%s%lf", &ID, first, last, password, &credit);
+        
+        fprintf(infile, "%d %s %s %s %.2lf\n", ID, first, last, password, credit);
     }
     fclose(infile);
-}
+    puts("Welcome to our server!");
 
+/*
 int remove_user() {
     FILE *infile;
     
