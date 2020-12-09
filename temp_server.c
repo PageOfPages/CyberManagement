@@ -198,7 +198,7 @@ int remove_user() {
         
         printf("Working on removing %d...\n", user);
         
-        outfile = fopen("clients_replica.c", "w");
+        outfile = fopen("clients_replica.txt", "w");
         line = getc(infile);
         
         while(line != EOF){
@@ -212,6 +212,6 @@ int remove_user() {
     fclose(infile);
     fclose(outfile);
     remove("clients.txt");
-    rename("clients_replica.c", "clients.txt");
+    rename("clients_replica.txt", "clients.txt");
 }
 */
