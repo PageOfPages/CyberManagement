@@ -1,9 +1,22 @@
 //Work in progress - Jazz
+//Paige added
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "server_window.c"
+#include "temp_server.c"
 
+
+int login(void)
+{
+    int user_ID;
+    char pwd[30];
+    printf("Enter your account ID number: ");
+    scanf("%d", &user_ID);
+    printf("Enter your password: ");
+    scanf("%s", pwd);
+    
+    server(user_ID, pwd);
+}
 
 int main(void) {
     char user_type;
@@ -21,18 +34,14 @@ int main(void) {
         client = tolower(client);
         
         if (client == 'y') {
-            int user_ID;
-            char pwd[30];
-            printf("Enter your account ID number: ");
-            scanf("%d", &user_ID);
-            printf("Enter your password: ");
-            scanf("%s", pwd);
-    
-            server(user_ID, pwd);
+            int wrong_login = login();
+            while (wrong_login == 1) {
+                wrong_login = login();
+            }
         }
         
         if (client == 'n') {
-            add_user();
+            //add_user();
         }
         
     }
@@ -43,6 +52,6 @@ int main(void) {
         printf("Enter the admin password for this server: ");
         scanf("%s", apwd);
         
-        admin(apwd);
+        //admin(apwd);
     }
 }
