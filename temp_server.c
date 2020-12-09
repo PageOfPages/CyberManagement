@@ -47,7 +47,7 @@ int server(int user_ID, char pwd[30])
 
 int user_count();
 int credit_check();
-//int add_user();
+int add_user();
 //int remove_user();
 
 int admin(char apwd[30]) {
@@ -72,10 +72,10 @@ int admin(char apwd[30]) {
                     credit_check();
                     break;
                 case 'a':
-                    puts("incomplete data");
+                    add_user();
                     break;
                 case 'r':
-                    puts("incomplete data");
+                    //remove_user();
                     break;
                 case 'x':
                     break;
@@ -153,23 +153,23 @@ int add_user() {
         char first[30];
         char last[30];
         double credit;
-        int user;
 
-        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+ //       fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);    //will need to check if user exists
         
         printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
         scanf("%d%s%s%s%lf", &ID, first, last, password, &credit);
         
-        fprintf(infile, "%d %s %s %s %.2lf\n", ID, first, last, password, credit);
+        fprintf(infile, "%d %s %s %s %.2lf\n", ID, first, last, password, credit);  //problem is here, formatting doesn't the scanf we use
     }
     fclose(infile);
     puts("Welcome to our server!");
+}
 
 /*
 int remove_user() {
-    FILE *infile;
+    FILE *infile, *outfile;
     
-    if ((infile = fopen("clients.txt", "r+")) == NULL) {
+    if ((infile = fopen("clients.txt", "r")) == NULL) {
         puts("File could not be accessed");
     }
     else {
@@ -179,18 +179,39 @@ int remove_user() {
         char last[30];
         double credit;
         int user;
+        char line;
+        int temp=1;
 
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        
+        line = getc(infile);
+        
+        while (line != EOF) {
+            printf("%c", line);
+            line = getc(infile);
+        }
+        
+        rewind(infile);
         
         printf("Enter a user ID to remove: ");
         scanf("%d", &user);
         
-        while(!feof(infile) ){
-            if (ID == user) {
-                
-            }
+        printf("Working on removing %d...\n", user);
+        
+        outfile = fopen("clients_replica.c", "w");
+        line = getc(infile);
+        
+        while(line != EOF){
+            if(line == '\n')
+                temp++;
+                if (ID != user) {
+                    fprintf(outfile, "%d", line);
+                }
+        }
     }
     fclose(infile);
+    fclose(outfile);
+    remove("clients.txt");
+    rename("clients_replica.c", "clients.txt");
 }
-
-*/ 
+*/
