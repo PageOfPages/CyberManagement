@@ -67,7 +67,8 @@ int admin(char apwd[30]) {
     
     else {
         char action=' ';
-    
+        int user;
+        
         puts("Actions: \nUser count = 'u'\nCredit for user = 'c'\nAdd user = 'a'\nRemove user = 'r'\nExit = 'x'");
     
         while (action != 'x') {
@@ -131,18 +132,14 @@ int credit_check(int user) {
         char first[30];
         char last[30];
         double credit;
-
-        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
- 
-        while(!feof(infile) ){
-            if (ID == user) {
+        
+        while(!feof(infile)){
+            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+            if (user == ID) {
+            
                 printf("User %d has the remaining credit: $%.2f\n", ID, credit);
                 break;
-            }
-            else {
-                printf("No user found with ID %d.\n", user);
-                break;
-            }
+            } 
         }
         fclose(infile);
     }
