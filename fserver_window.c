@@ -188,8 +188,8 @@ int add_user(void) {				//add user function
     fclose(infile);   
 }
 
-int remove_user(void) {
-    FILE *infile, *outfile;
+int remove_user(void) {			//remove user function
+    FILE *infile, *outfile;	
     
     if ((infile = fopen("clients.txt", "r")) == NULL) {
         puts("File could not be accessed");
@@ -210,9 +210,9 @@ int remove_user(void) {
         
         outfile = fopen("clients_replica.txt", "w");
         
-        while(!feof(infile)){
+        while(!feof(infile)){			//while is not end of file
             fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
-            if (ID != user) {
+            if (ID != user) {			//if id is not user
                 fprintf(outfile,"%d %s %s %s %.2lf\n", ID, first, last, password, credit);
             }
         }
