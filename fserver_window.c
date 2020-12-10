@@ -121,7 +121,6 @@ int user_count(void) {				//user count function
 
 int credit_check(int user) {			//credit check function
     FILE *infile;				
-    int count = 0;
 
     if ((infile = fopen("clients.txt", "r")) == NULL) {	
         puts("File could not be accessed");
@@ -154,13 +153,7 @@ int add_user(void) {				//add user function
     if ((infile = fopen("clients.txt", "a")) == NULL) {	
         puts("File could not be accessed");
     }
-    else {
-        int ID;
-        char password[30];
-        char first[30];
-        char last[30];
-        double credit;
-        
+    else {        
         int newID;
         char pass[30];
         char name1[30];
@@ -168,9 +161,15 @@ int add_user(void) {				//add user function
         double init_cred;
         
         printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
-        scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);		//
+        scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);		//scans user input to set to variables
         /* This is to test if the user exists in the system already, but it doesn't work
-        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        int ID;
+        char password[30];
+        char first[30];
+        char last[30];
+        double credit;
+	
+	fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         
         if (strcmp(first, name1)==0) {
             if (strcmp(last, name2)==0) {
@@ -201,7 +200,6 @@ int remove_user(void) {			//remove user function
         char last[30];
         double credit;
         int user;
-        char line;
         
         printf("Enter a user ID to remove: ");
         scanf("%d", &user);
