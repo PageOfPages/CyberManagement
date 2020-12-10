@@ -172,7 +172,6 @@ int add_user(void) {				//add user function
         scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);
         
         
-
         		//
         /* This is to test if the user exists in the system already, but it doesn't work
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
@@ -189,18 +188,12 @@ int add_user(void) {				//add user function
         */
 
 
-
-
         fprintf(infile, "%d %s %s %s %.2lf\n", newID, name1, name2, pass, init_cred); //prints into the file with user's information
         printf("Welcome to our server, %s %s!\n", name1, name2);   
     }
     fclose(infile);   
 }
 
-// int existing_user(void)
-// {
-    
-// }
 
 int remove_user(void) {			//remove user function
     FILE *infile, *outfile;	
