@@ -114,7 +114,6 @@ int user_count(void) {
                 count += 1;
         }
     }
-    
     fclose(infile);
     printf("There are %d users in the system.\n", count);
 }
@@ -122,7 +121,6 @@ int user_count(void) {
 int credit_check(int user) {
     FILE *infile;
     int count = 0;
-    char c;
 
     if ((infile = fopen("clients.txt", "r")) == NULL) {
         puts("File could not be accessed");
@@ -133,12 +131,9 @@ int credit_check(int user) {
         char first[30];
         char last[30];
         double credit;
-        int user;
 
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
  
-        printf("Please enter ID to check credit amount: ");
-        scanf("%d", &user);
         while(!feof(infile) ){
             if (ID == user) {
                 printf("User %d has the remaining credit: $%.2f\n", ID, credit);
@@ -165,8 +160,16 @@ int add_user(void) {
         char first[30];
         char last[30];
         double credit;
-
-        /*   //attempt to check if user exists, doesn't work
+        
+        int newID;
+        char pass[30];
+        char name1[30];
+        char name2[30];
+        double init_cred;
+        
+        printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
+        scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);
+        /*
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         
         if (strcmp(first, name1)==0) {
@@ -179,16 +182,10 @@ int add_user(void) {
             printf("Welcome to our server, %s %s!\n", name1, name2);
         }
         */
-        
-        printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
-        scanf("%d%s%s%s%lf", &ID, first, last, password, &credit);
-
-        fprintf(infile, "%d %s %s %s %.2f\n", 9384, "Olly", "Lun", "*6539jdhi", 40.00);
-        
-        fprintf(infile, "%d %s %s %s %.2lf\n", ID, first, last, password, credit);  //problem is here, formatting doesn't the scanf we use
+        fprintf(infile, "%d %s %s %s %.2lf\n", newID, name1, name2, pass, init_cred);
+        printf("Welcome to our server, %s %s!\n", name1, name2);   
     }
-    fclose(infile);
-    puts("Welcome to our server!");
+    fclose(infile);   
 }
 
 /*
