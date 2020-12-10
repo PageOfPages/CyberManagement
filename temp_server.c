@@ -204,13 +204,11 @@ int remove_user(void) {
         char last[30];
         double credit;
         int user;
-        char line;
         
         printf("Enter a user ID to remove: ");
         scanf("%d", &user);
         
         printf("Working on removing %d...\n", user);
-        count=user_count();
         
         outfile = fopen("clients_replica.txt", "w");
         
