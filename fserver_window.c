@@ -1,5 +1,5 @@
 //Created by: Paige Arnold, Alyssa Capehart, Kyle Martin Jurilla, & Jasmine Wilson
-//final version
+//final version of Group 7: Cyber Management Project
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -69,7 +69,6 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
     else {
         char action=' ';			//action to a blank character
     	int user;
-    	int count;
         puts("Actions: \nUser count = 'u'\nCredit for user = 'c'\nAdd user = 'a'\nRemove user = 'r'\nExit = 'x'");
     
         while (action != 'x') {		//while the action is not equivalent to x
@@ -78,8 +77,7 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
             action = tolower(action);		//puts action input to lowercase letter
             switch(action) {			//beginning of switch for action
                 case 'u':
-                    count = user_count();		//runs user count counter
-                    printf("There are %d users in the system.\n", count);
+                    user_count();		//runs user count counter
                     break;
                 case 'c':
                     printf("Please enter ID to check credit amount: ");
@@ -118,7 +116,7 @@ int user_count(void) {				//user count function
         }
     }
     fclose(infile);				//closes file
-    return count;
+    printf("There are %d users in the system.\n", count);
 }
 
 int credit_check(int user) {			//credit check function
@@ -164,7 +162,7 @@ int add_user(void) {				//add user function
         
         printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
         scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);		//scans user input to set to variables
-        /* This is to test if the user exists in the system already, but it doesn't work
+        /* Tests if the user exists in the system already, but didn't work
         int ID;
         char password[30];
         char first[30];
@@ -190,7 +188,7 @@ int add_user(void) {				//add user function
 }
 
 
-//partially works
+//partially works, breaks after removing user twice
 int remove_user(void) {			//remove user function
     FILE *infile, *outfile;	
     
