@@ -30,11 +30,11 @@ int server(int user_ID, char pwd[30])		//server function, initializes/calls for 
 
      	fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);		//Reads the line of the file and denotes each section/variables
 
-        while(!feof(infile) ){		//while not end of file
-            if (ID == user_ID){		//if the id matches the user input (user_id)
-                user_found = 1;		// if user is found, set it = 1 (yes)
-                if (strcmp(password, pwd) == 0) {	//compares the strings password and pwd
-                    if (credit == 0) {	//credit equals 0 from the file
+        while(!feof(infile) ){		//paige
+            if (ID == user_ID){		//paige
+                user_found = 1;		// if user is found, yes
+                if (strcmp(password, pwd) == 0) {	//paige
+                    if (credit == 0) {	//paige
                         printf("Sorry, %s %s! You have no credit remaining in your account.\n", first, last);
                     }
                     else {
@@ -49,11 +49,11 @@ int server(int user_ID, char pwd[30])		//server function, initializes/calls for 
                     return 1;
                 }
             }
-            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);	//Reads the line of the file and denotes each section/variables
+            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);	//paige
         }
-        if (user_found == 0) {		//if the user is 0, not found
+        if (user_found == 0) {		//if the user is not found
             puts("Hmmm, seems like you don't have an account with us.\nLet's make an account for you!\n");
-            add_user();			//perform add user function			
+            add_user();			
         }
         fclose(infile); 			
     }
@@ -69,7 +69,6 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
     else {
         char action=' ';			//action to a blank character
     	int user;
-	int count;
         puts("Actions: \nUser count = 'u'\nCredit for user = 'c'\nAdd user = 'a'\nRemove user = 'r'\nExit = 'x'");
     
         while (action != 'x') {		//while the action is not equivalent to x
@@ -78,8 +77,7 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
             action = tolower(action);		//puts action input to lowercase letter
             switch(action) {			//beginning of switch for action
                 case 'u':
-                    count = user_count();		//runs user count counter
-                    printf("There are %d users in the system.\n", count);
+                    user_count();		//runs user count counter
                     break;
                 case 'c':
                     printf("Please enter ID to check credit amount: ");
@@ -87,15 +85,15 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
                     credit_check(user);	//credit check function
                     break;
                 case 'a':
-                    add_user();		//runs add user if a is entered
+                    add_user();		//runs add user
                     break;
                 case 'r':
-                    remove_user();		//runs remove user if r is entered
+                    remove_user();
                     break;
-                case 'x':			//exits loop
+                case 'x':
                     break;
                 default:
-                    puts("Invalid input.");	//pops up if no cases/characters above are entered
+                    puts("Invalid input.");
                     break;
             }
         }
@@ -118,12 +116,14 @@ int user_count(void) {				//user count function
         }
     }
     fclose(infile);				//closes file
+    //printf("There are %d users in the system.\n", count);
     return count;
 }
 
 int credit_check(int user) {			//credit check function
-    FILE *infile;
-    				
+    FILE *infile;				
+    int count = 0;
+
     if ((infile = fopen("clients.txt", "r")) == NULL) {	
         puts("File could not be accessed");
     }
@@ -155,7 +155,13 @@ int add_user(void) {				//add user function
     if ((infile = fopen("clients.txt", "a")) == NULL) {	
         puts("File could not be accessed");
     }
-    else {        
+    else {
+        int ID;
+        char password[30];
+        char first[30];
+        char last[30];
+        double credit;
+        
         int newID;
         char pass[30];
         char name1[30];
@@ -163,15 +169,13 @@ int add_user(void) {				//add user function
         double init_cred;
         
         printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
-        scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);		//scans user input to set to variables
+        scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);
+        
+        
+
+        		//
         /* This is to test if the user exists in the system already, but it doesn't work
-        int ID;
-        char password[30];
-        char first[30];
-        char last[30];
-        double credit;
-	
-	fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         
         if (strcmp(first, name1)==0) {
             if (strcmp(last, name2)==0) {
@@ -183,14 +187,21 @@ int add_user(void) {				//add user function
             printf("Welcome to our server, %s %s!\n", name1, name2);
         }
         */
+
+
+
+
         fprintf(infile, "%d %s %s %s %.2lf\n", newID, name1, name2, pass, init_cred); //prints into the file with user's information
         printf("Welcome to our server, %s %s!\n", name1, name2);   
     }
     fclose(infile);   
 }
 
+// int existing_user(void)
+// {
+    
+// }
 
-//partially works
 int remove_user(void) {			//remove user function
     FILE *infile, *outfile;	
     
@@ -204,6 +215,7 @@ int remove_user(void) {			//remove user function
         char last[30];
         double credit;
         int user;
+        char line;
         
         printf("Enter a user ID to remove: ");
         scanf("%d", &user);
@@ -212,11 +224,16 @@ int remove_user(void) {			//remove user function
         
         outfile = fopen("clients_replica.txt", "w");
         
-        while(!feof(infile)){			//while is not end of file
-            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        int count = user_count();
+        int c = 0;
+        while(c <= count){
+            c = c + 1;			//while is not end of file
             if (ID != user) {			//if id is not user
                 fprintf(outfile,"%d %s %s %s %.2lf\n", ID, first, last, password, credit);
+                printf("User ID: %d\n", ID);
             }
+            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         }
         fclose(outfile);
         remove("clients.txt");
