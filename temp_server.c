@@ -169,7 +169,7 @@ int add_user(void) {
         
         printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
         scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);
-        /*
+        /* This is to test if the user exists in the system already, but it doesn't work
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         
         if (strcmp(first, name1)==0) {
@@ -188,7 +188,7 @@ int add_user(void) {
     fclose(infile);   
 }
 
-/*
+/* Will probably get scrapped we don't have time 
 int remove_user(void) {
     FILE *infile, *outfile;
     
