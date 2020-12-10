@@ -59,7 +59,6 @@ int server(int user_ID, char pwd[30])
     return 0;
 }
 
-
 int admin(char apwd[30]) {
     if (strcmp(apwd, "password")!=0) {
         puts("Sorry, wrong password! Restart system to login as administrator");
@@ -68,7 +67,7 @@ int admin(char apwd[30]) {
     else {
         char action=' ';
         int user;
-        
+        int count;
         puts("Actions: \nUser count = 'u'\nCredit for user = 'c'\nAdd user = 'a'\nRemove user = 'r'\nExit = 'x'");
     
         while (action != 'x') {
@@ -77,7 +76,9 @@ int admin(char apwd[30]) {
             action = tolower(action);
             switch(action) {
                 case 'u':
-                    user_count();
+                    //user_count();
+                    count = user_count();
+                    printf("There are %d users in the system.\n", count);
                     break;
                 case 'c':
                     printf("Please enter ID to check credit amount: ");
@@ -88,7 +89,7 @@ int admin(char apwd[30]) {
                     add_user();
                     break;
                 case 'r':
-                    //remove_user();
+                    remove_user();
                     break;
                 case 'x':
                     break;
@@ -116,7 +117,8 @@ int user_count(void) {
         }
     }
     fclose(infile);
-    printf("There are %d users in the system.\n", count);
+   // printf("There are %d users in the system.\n", count);
+    return count;
 }
 
 int credit_check(int user) {
@@ -132,12 +134,11 @@ int credit_check(int user) {
         char first[30];
         char last[30];
         double credit;
-        int print = 0;
+        int print=0;
         
         while(!feof(infile)){
             fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
             if (user == ID) {
-            
                 printf("User %d has the remaining credit: $%.2f\n", ID, credit);
                 print = 1;
                 break;
@@ -170,7 +171,7 @@ int add_user(void) {
         
         printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
         scanf("%d%s%s%s%lf", &newID, name1, name2, pass, &init_cred);
-        /* This is to test if the user exists in the system already, but it doesn't work
+        /*
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
         
         if (strcmp(first, name1)==0) {
@@ -189,7 +190,7 @@ int add_user(void) {
     fclose(infile);   
 }
 
-/* Will probably get scrapped we don't have time 
+
 int remove_user(void) {
     FILE *infile, *outfile;
     
@@ -204,22 +205,19 @@ int remove_user(void) {
         double credit;
         int user;
         char line;
-
-        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
-        
-        rewind(infile);
         
         printf("Enter a user ID to remove: ");
         scanf("%d", &user);
         
         printf("Working on removing %d...\n", user);
+        count=user_count();
         
         outfile = fopen("clients_replica.txt", "w");
-        line = getc(infile);
         
-        while(line != EOF){
+        while(!feof(infile)){
+            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
             if (ID != user) {
-                fprintf(outfile, "%d", line);
+                fprintf(outfile,"%d %s %s %s %.2lf\n", ID, first, last, password, credit);
             }
         }
         fclose(outfile);
@@ -228,4 +226,3 @@ int remove_user(void) {
     }
     fclose(infile);
 }
-*/
