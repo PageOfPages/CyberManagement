@@ -30,11 +30,11 @@ int server(int user_ID, char pwd[30])		//server function, initializes/calls for 
 
      	fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);		//Reads the line of the file and denotes each section/variables
 
-        while(!feof(infile) ){		//paige
-            if (ID == user_ID){		//paige
-                user_found = 1;		// if user is found, yes
-                if (strcmp(password, pwd) == 0) {	//paige
-                    if (credit == 0) {	//paige
+        while(!feof(infile) ){		//while not end of file
+            if (ID == user_ID){		//if the id matches the user input (user_id)
+                user_found = 1;		// if user is found, set it = 1 (yes)
+                if (strcmp(password, pwd) == 0) {	//compares the strings password and pwd
+                    if (credit == 0) {	//credit equals 0 from the file
                         printf("Sorry, %s %s! You have no credit remaining in your account.\n", first, last);
                     }
                     else {
@@ -49,11 +49,11 @@ int server(int user_ID, char pwd[30])		//server function, initializes/calls for 
                     return 1;
                 }
             }
-            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);	//paige
+            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);	//Reads the line of the file and denotes each section/variables
         }
-        if (user_found == 0) {		//if the user is not found
+        if (user_found == 0) {		//if the user is 0, not found
             puts("Hmmm, seems like you don't have an account with us.\nLet's make an account for you!\n");
-            add_user();			
+            add_user();			//perform add user function			
         }
         fclose(infile); 			
     }
@@ -85,15 +85,15 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
                     credit_check(user);	//credit check function
                     break;
                 case 'a':
-                    add_user();		//runs add user
+                    add_user();		//runs add user if a is entered
                     break;
                 case 'r':
-                    remove_user();
+                    remove_user();		//runs remove user if r is entered
                     break;
-                case 'x':
+                case 'x':			//exits loop
                     break;
                 default:
-                    puts("Invalid input.");
+                    puts("Invalid input.");	//pops up if no cases/characters above are entered
                     break;
             }
         }
@@ -120,8 +120,8 @@ int user_count(void) {				//user count function
 }
 
 int credit_check(int user) {			//credit check function
-    FILE *infile;				
-
+    FILE *infile;
+    				
     if ((infile = fopen("clients.txt", "r")) == NULL) {	
         puts("File could not be accessed");
     }
@@ -187,6 +187,8 @@ int add_user(void) {				//add user function
     fclose(infile);   
 }
 
+
+//partially works
 int remove_user(void) {			//remove user function
     FILE *infile, *outfile;	
     
