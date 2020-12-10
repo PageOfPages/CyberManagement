@@ -132,16 +132,20 @@ int credit_check(int user) {
         char first[30];
         char last[30];
         double credit;
+        int print = 0;
         
         while(!feof(infile)){
             fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
             if (user == ID) {
             
                 printf("User %d has the remaining credit: $%.2f\n", ID, credit);
+                print = 1;
                 break;
             } 
         }
         fclose(infile);
+        if (print ==0)
+            printf("User %d not found in system.\n", user);
     }
 }
 
