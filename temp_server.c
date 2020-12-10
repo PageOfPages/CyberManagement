@@ -164,7 +164,19 @@ int add_user() {
         char last[30];
         double credit;
 
- //       fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);    //will need to check if user exists
+        /*   //attempt to check if user exists, doesn't work
+        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
+        
+        if (strcmp(first, name1)==0) {
+            if (strcmp(last, name2)==0) {
+                printf("Sorry, an account for %s %s already exists!", first, last);
+            }
+        }
+        else {
+            fprintf(infile, "%d %s %s %s %.2lf\n", newID, name1, name2, pass, init_cred);
+            printf("Welcome to our server, %s %s!\n", name1, name2);
+        }
+        */
         
         printf("Enter the User ID, First name, Last name, Password, and starting credit for the account you would like to create: ");
         scanf("%d%s%s%s%lf", &ID, first, last, password, &credit);
@@ -192,16 +204,8 @@ int remove_user() {
         double credit;
         int user;
         char line;
-        int temp=1;
 
         fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
-        
-        line = getc(infile);
-        
-        while (line != EOF) {
-            printf("%c", line);
-            line = getc(infile);
-        }
         
         rewind(infile);
         
@@ -214,17 +218,15 @@ int remove_user() {
         line = getc(infile);
         
         while(line != EOF){
-            if(line == '\n')
-                temp++;
-                if (ID != user) {
-                    fprintf(outfile, "%d", line);
-                }
+            if (ID != user) {
+                fprintf(outfile, "%d", line);
+            }
         }
+        fclose(outfile);
+        remove("clients.txt");
+        rename("clients_replica.txt", "clients.txt");
     }
     fclose(infile);
-    fclose(outfile);
-    remove("clients.txt");
-    rename("clients_replica.txt", "clients.txt");
 }
 */
 
