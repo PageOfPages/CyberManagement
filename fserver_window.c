@@ -69,6 +69,7 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
     else {
         char action=' ';			//action to a blank character
     	int user;
+	int count;
         puts("Actions: \nUser count = 'u'\nCredit for user = 'c'\nAdd user = 'a'\nRemove user = 'r'\nExit = 'x'");
     
         while (action != 'x') {		//while the action is not equivalent to x
@@ -77,7 +78,8 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
             action = tolower(action);		//puts action input to lowercase letter
             switch(action) {			//beginning of switch for action
                 case 'u':
-                    user_count();		//runs user count counter
+                    count = user_count();		//runs user count counter
+                    printf("There are %d users in the system.\n", count);
                     break;
                 case 'c':
                     printf("Please enter ID to check credit amount: ");
@@ -116,7 +118,7 @@ int user_count(void) {				//user count function
         }
     }
     fclose(infile);				//closes file
-    printf("There are %d users in the system.\n", count);
+    return count;
 }
 
 int credit_check(int user) {			//credit check function
