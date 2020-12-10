@@ -3,10 +3,10 @@
 #include <string.h>
 #include <ctype.h>
 
-int user_count();
-int credit_check();
-int add_user();
-int remove_user();
+int user_count(void);
+int credit_check(int user);
+int add_user(void);
+int remove_user(void);
 
 int server(int user_ID, char pwd[30])
 {
@@ -79,7 +79,9 @@ int admin(char apwd[30]) {
                     user_count();
                     break;
                 case 'c':
-                    credit_check();
+                    printf("Please enter ID to check credit amount: ");
+                    scanf("%d", &user);
+                    credit_check(user);
                     break;
                 case 'a':
                     add_user();
@@ -98,7 +100,7 @@ int admin(char apwd[30]) {
     }
 }
 
-int user_count() {
+int user_count(void) {
     FILE *infile;
     int count = 0;
     char c;
@@ -117,7 +119,7 @@ int user_count() {
     printf("There are %d users in the system.\n", count);
 }
 
-int credit_check() {
+int credit_check(int user) {
     FILE *infile;
     int count = 0;
     char c;
@@ -151,7 +153,7 @@ int credit_check() {
     }
 }
 
-int add_user() {
+int add_user(void) {
     FILE *infile;
     
     if ((infile = fopen("clients.txt", "a")) == NULL) {
@@ -190,7 +192,7 @@ int add_user() {
 }
 
 /*
-int remove_user() {
+int remove_user(void) {
     FILE *infile, *outfile;
     
     if ((infile = fopen("clients.txt", "r")) == NULL) {
@@ -229,4 +231,3 @@ int remove_user() {
     fclose(infile);
 }
 */
-
