@@ -88,7 +88,7 @@ int admin(char apwd[30]) {	//admin function with admin password set to 30 char.
                     add_user();		//runs add user
                     break;
                 case 'r':
-                    //remove_user();
+                    remove_user();
                     break;
                 case 'x':
                     break;
@@ -188,7 +188,6 @@ int add_user(void) {				//add user function
     fclose(infile);   
 }
 
-/* Will probably get scrapped we don't have time 
 int remove_user(void) {
     FILE *infile, *outfile;
     
@@ -203,10 +202,6 @@ int remove_user(void) {
         double credit;
         int user;
         char line;
-
-        fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
-        
-        rewind(infile);
         
         printf("Enter a user ID to remove: ");
         scanf("%d", &user);
@@ -214,11 +209,11 @@ int remove_user(void) {
         printf("Working on removing %d...\n", user);
         
         outfile = fopen("clients_replica.txt", "w");
-        line = getc(infile);
         
-        while(line != EOF){
+        while(!feof(infile)){
+            fscanf(infile,"%d%29s%29s%29s%lf", &ID, first, last, password, &credit);
             if (ID != user) {
-                fprintf(outfile, "%d", line);
+                fprintf(outfile,"%d %s %s %s %.2lf\n", ID, first, last, password, credit);
             }
         }
         fclose(outfile);
@@ -227,4 +222,3 @@ int remove_user(void) {
     }
     fclose(infile);
 }
-*/
